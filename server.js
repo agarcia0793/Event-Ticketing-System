@@ -7,6 +7,8 @@ import connectDB from './config/db.js';
 import authRoutes from './routes/auth.js';
 import eventRoutes from './routes/events.js';
 import bookingRoutes from './routes/bookings.js';
+import adminRoutes from './routes/admin.js';
+app.use('/api/admin', adminRoutes);
 import { notFound, errorHandler } from './middlewares/error.js';
 
 dotenv.config();
