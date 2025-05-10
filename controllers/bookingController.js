@@ -34,16 +34,13 @@ export const createBooking = async (req, res) => {
 
     const qrData = `${req.user._id}_${eventId}_${Date.now()}`;
     console.log('QR STRING USED:', qrData);
-    const qrImage = await generateQR(qrData); 
-    const qrCode = qrData;                    
-
+    await generateQR(qrData); // We don't need the base64 image anymore
 
     const booking = await Booking.create({
-    user: req.user._id,
-    event: eventId,
-    quantity,
-    qrCode,
-    qrImage 
+      user: req.user._id,
+      event: eventId,
+      quantity,
+      qrCode: qrData
     });
 
     event.bookedSeats += quantity;
@@ -54,7 +51,7 @@ export const createBooking = async (req, res) => {
       <p>Event: ${event.title}</p>
       <p>Quantity: ${quantity}</p>
       <p>Date: ${event.date.toDateString()}</p>
-      <img src="${qrCode}" alt="QR Code" />`;
+      <p>QR Code: ${qrData}</p>`;
 
     await sendEmail(req.user.email, subject, html);
 
@@ -65,13 +62,13 @@ export const createBooking = async (req, res) => {
 };
 
 export const validateBookingQR = async (req, res) => {
-  const { qr } = req.params;
   try {
-    const booking = await Booking.findOne({ qrCode: qr }).populate('event');
+    const booking = await Booking.findOne({ qrCode: req.params.qr }).populate('event');
     if (!booking) return res.status(404).json({ valid: false, message: 'QR code invalid' });
     res.json({ valid: true, booking });
   } catch (err) {
-    res.status(500).json({ error: 'Validation failed' });
+    res.status(500).json({ error: 'Failed to validate QR code' });
   }
 };
+
 
