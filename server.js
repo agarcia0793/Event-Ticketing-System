@@ -7,14 +7,14 @@ import connectDB from './config/db.js';
 import authRoutes from './routes/auth.js';
 import eventRoutes from './routes/events.js';
 import bookingRoutes from './routes/bookings.js';
-import adminRoutes from './routes/admin.js';
-app.use('/api/admin', adminRoutes);
+import adminRoutes from './routes/admin.js'; 
+
 import { notFound, errorHandler } from './middlewares/error.js';
 
 dotenv.config();
 connectDB();
 
-const app = express();
+const app = express(); 
 
 app.use(cors());
 app.use(morgan('dev'));
@@ -27,6 +27,7 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/bookings', bookingRoutes);
+app.use('/api/admin', adminRoutes); 
 
 app.use(notFound);
 app.use(errorHandler);
