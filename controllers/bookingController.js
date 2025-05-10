@@ -34,6 +34,7 @@ export const createBooking = async (req, res) => {
     }
 
     const qrData = `${req.user._id}_${eventId}_${Date.now()}`;
+    console.log('QR STRING USED:', qrData);
     const qrCode = await generateQR(qrData);
 
     const booking = await Booking.create({
