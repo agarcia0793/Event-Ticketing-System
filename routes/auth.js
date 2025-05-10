@@ -1,12 +1,20 @@
-import express from 'express';
-import { getAdminDashboard } from '../controllers/adminDashboardController.js';
-import { protect, adminOnly } from '../middlewares/auth.js';
+import jwt from 'jsonwebtoken';
+import User from '../models/User.js';
 
-const router = express.Router();
+export const protect = async (req, res, next) => {
+  let token = req.headers.authorization?.split(' ')[1];
+  if (!token) return res.status(401).json({ error: 'No token provided' });
 
-router.use(protect);
-router.use(adminOnly); // restrict to admin
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = await User.findById(decoded.id).select('-password');
+    next();
+  } catch (err) {
+    res.status(401).json({ error: 'Invalid or expired token' });
+  }
+};
 
-router.get('/dashboard', getAdminDashboard);
-
-export default router;
+export const adminOnly = (req, res, next) => {
+  if (req.user && req.user.role === 'admin') return next();
+  res.status(403).json({ error: 'Admin access only' });
+};
