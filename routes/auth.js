@@ -1,9 +1,12 @@
 import express from 'express';
-import { registerUser, loginUser } from '../controllers/authController.js';
+import { getAdminDashboard } from '../controllers/adminDashboardController.js';
+import { protect, adminOnly } from '../middlewares/auth.js';
 
 const router = express.Router();
 
-router.post('/register', registerUser);
-router.post('/login', loginUser);
+router.use(protect);
+router.use(adminOnly); // restrict to admin
+
+router.get('/dashboard', getAdminDashboard);
 
 export default router;
