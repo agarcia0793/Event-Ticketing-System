@@ -3,7 +3,6 @@ import Event from '../models/Event.js';
 import { generateQR } from '../utils/generateQR.js';
 import { sendEmail } from '../utils/sendEmail.js';
 
-
 export const getUserBookings = async (req, res) => {
   try {
     const bookings = await Booking.find({ user: req.user._id }).populate('event');
@@ -47,7 +46,6 @@ export const createBooking = async (req, res) => {
     event.bookedSeats += quantity;
     await event.save();
 
-    // Email confirmation
     const subject = 'Your Event Booking Confirmation';
     const html = `<h2>Booking Confirmed</h2>
       <p>Event: ${event.title}</p>
@@ -62,3 +60,15 @@ export const createBooking = async (req, res) => {
     res.status(400).json({ error: 'Booking failed' });
   }
 };
+
+export const validateBookingQR = async (req, res) => {
+  const { qr } = req.params;
+  try {
+    const booking = await Booking.findOne({ qrCode: qr }).populate('event');
+    if (!booking) return res.status(404).json({ valid: false, message: 'QR code invalid' });
+    res.json({ valid: true, booking });
+  } catch (err) {
+    res.status(500).json({ error: 'Validation failed' });
+  }
+};
+
