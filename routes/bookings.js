@@ -9,11 +9,15 @@ import auth from '../middlewares/auth.js';
 
 const router = express.Router();
 
+
+router.get('/validate/:qr', validateBookingQR);
+
+
 router.use(auth);
 
 router.get('/', getUserBookings);
 router.get('/:id', getBookingById);
 router.post('/', createBooking);
-router.get('/validate/:qr', validateBookingQR);
 
 export default router;
+
