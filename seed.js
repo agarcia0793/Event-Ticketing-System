@@ -30,11 +30,11 @@ const seed = async () => {
       price: 49.99
     });
 
-    console.log('Seed successful ✅');
+    console.log('Seed successful');
     console.log(`Admin Email: ${admin.email} | Password: admin123`);
     process.exit();
   } catch (err) {
-    console.error('Seed error ❌', err);
+    console.error('Seed error', err);
     process.exit(1);
   }
 };
