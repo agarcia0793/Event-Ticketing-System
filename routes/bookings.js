@@ -1,19 +1,17 @@
-import express from 'express';
+iimport express from 'express';
 import {
   getUserBookings,
   getBookingById,
   createBooking,
   validateBookingQR
 } from '../controllers/bookingController.js';
-import auth from '../middlewares/auth.js';
+import { protect } from '../middlewares/auth.js'; 
 
 const router = express.Router();
 
-
 router.get('/validate/:qr', validateBookingQR);
 
-
-router.use(auth);
+router.use(protect);
 
 router.get('/', getUserBookings);
 router.get('/:id', getBookingById);
