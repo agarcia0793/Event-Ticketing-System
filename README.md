@@ -88,7 +88,7 @@ $ npm start
 ---
 
 ## 📤 Deployment
-Deployed on [Render](https://event-ticketing-system-fblm.onrender.com), follow steps in server.js to customize your base URL and route handlers.
+Deployed on [Render](https://event-ticketing-system-qsds.onrender.com), follow steps in server.js to customize your base URL and route handlers.
 
 ---
 
