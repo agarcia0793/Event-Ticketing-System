@@ -8,6 +8,14 @@ export const sendEmail = async (to, subject, html) => {
       pass: process.env.EMAIL_PASS
     }
   });
+  
+  transporter.verify((error, success) => {
+    if (error) {
+      console.log('SMTP Error:', error);
+    } else {
+      console.log('SMTP server is ready to send emails');
+    }
+  });
 
   try {
     const info = await transporter.sendMail({
