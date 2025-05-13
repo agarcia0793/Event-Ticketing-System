@@ -27,4 +27,4 @@ Deployed on [Render](https://event-ticketing-system-qsds.onrender.com), follow s
 
 ## Author
 **Adriana Garcia**  
-GitHub: [@agarcia0793](https://github.com/Garcia_INF653)
+GitHub: [@agarcia0793](https://github.com/agarcia0793/Event-Ticketing-System)
