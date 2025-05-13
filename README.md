@@ -21,7 +21,7 @@ Deployed on [Render](https://event-ticketing-system-qsds.onrender.com), follow s
 ---
 
 ## Demo
-**Video walkthrough:** _add your Loom/YouTube link here_
+**Video walkthrough:** [Event_Ticketing_System](https://youtu.be/zYuO66q9-4U)
 
 ---
 
